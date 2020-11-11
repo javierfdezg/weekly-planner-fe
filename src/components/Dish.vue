@@ -1,0 +1,51 @@
+<template>
+  <v-card class="mx-auto my-8">
+    <v-img
+      v-if="dish.imageUrl"
+      :src="dish.imageUrl"
+      height="250"
+    ></v-img>
+
+    <v-card-title>
+      {{ dish.name }}
+    </v-card-title>
+
+    <v-card-subtitle
+      ><v-icon>alarm</v-icon>{{ dish.preparationTime }}</v-card-subtitle
+    >
+
+    <v-card-text>
+      <div v-for="ingredient in dish.ingredients" v-bind:key="ingredient">
+        <span>{{ ingredient }}</span>
+      </div>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn color="deep-purple lighten-2" text @click="addToMenu">
+        Add to menu
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: "Dish",
+  props: {
+    dish: {
+      id: Number,
+      imageURL: String,
+      name: String,
+      preparationTime: Number,
+      ingredients: Array
+    }
+  },
+  methods: {
+    addToMenu() {
+      console.log("TODO: Add dish to menu...");
+    }
+  }
+};
+</script>
+
+<style scoped></style>
