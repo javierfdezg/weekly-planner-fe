@@ -5,9 +5,7 @@
 <script>
 export default {
   name: "Dishes"
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

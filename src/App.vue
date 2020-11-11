@@ -1,35 +1,33 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/weekly-menus">Weekly Menu</router-link> |
-      <router-link to="/dishes">Dishes</router-link> |
-      <router-link to="/leftovers">Leftovers</router-link> |
-      <router-link to="/pantry">Pantry</router-link> |
+  <v-app>
+    <v-navigation-drawer app permanent>
+      <router-link to="/weekly-menus">Weekly Menu</router-link> | <br />
+      <router-link to="/dishes">Dishes</router-link> | <br />
+      <router-link to="/leftovers">Leftovers</router-link> | <br />
+      <router-link to="/pantry">Pantry</router-link> | <br />
       <router-link to="/shopping">Shopping</router-link>
-    </div>
-    <router-view/>
-  </div>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <h1>App bar</h1>
+    </v-app-bar>
+
+    <v-main>
+
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+
+    <v-footer app>
+      <h1>Footer</h1>
+    </v-footer>
+  </v-app>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

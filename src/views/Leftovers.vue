@@ -4,10 +4,8 @@
 
 <script>
 export default {
-name: "Leftovers"
-}
+  name: "Leftovers"
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
