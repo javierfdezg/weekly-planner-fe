@@ -1,20 +1,20 @@
 <template>
-  <v-container fluid=true>
-    <v-flex md12 v-for="item in items" v-bind:key="item.id">
+  <v-container fluid>
+    <v-flex md12 v-for="dish in dishes" v-bind:key="dish.id">
       <v-card class="mx-auto my-8">
         <v-img
           height="250"
           src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
         ></v-img>
 
-        <v-card-title>Pasta Salad</v-card-title>
+        <v-card-title>
+          Pasta Salad
+        </v-card-title>
+
+        <v-card-subtitle><v-icon>alarm</v-icon>{{ dish.preparationTime }}</v-card-subtitle>
 
         <v-card-text>
-          <div class="my-4 subtitle-1">
-            Ingredients
-          </div>
-
-          <div>Laces, sweet corn, ham, mayonnaise</div>
+          <div v-for="ingredient in dish.ingredients" v-bind:key="ingredient"><span>{{ingredient}}</span></div>
         </v-card-text>
 
         <v-card-actions>
@@ -31,7 +31,11 @@
 export default {
   name: "Dishes",
   data: () => ({
-    items: [{id: 0, name: "dish1"}, {id: 1, name: "dish2"}, {id: 2, name: "dish3"}]
+    dishes: [
+      { id: 0, name: "dish1", ingredients: ["Laces", "Sweet corn", "Ham"], preparationTime: 10 },
+      { id: 1, name: "dish2", ingredients: ["Laces", "Sweet corn", "Ham"], preparationTime: 10 },
+      { id: 2, name: "dish3", ingredients: ["Laces", "Sweet corn", "Ham"], preparationTime: 10 }
+    ]
   }),
 
   methods: {
