@@ -3,7 +3,7 @@
     <v-navigation-drawer app permanent>
       <router-link to="/weekly-menus">Weekly Menu</router-link> | <br />
       <router-link to="/dishes">Dishes</router-link> | <br />
-      <router-link to="/leftovers">Leftovers</router-link> | <br />
+      <router-link to="/ingredients">Ingredients</router-link> | <br />
       <router-link to="/pantry">Pantry</router-link> | <br />
       <router-link to="/shopping">Shopping</router-link>
     </v-navigation-drawer>
