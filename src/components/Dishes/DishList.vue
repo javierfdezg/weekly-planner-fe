@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import CreateDish from "@/components/CreateDish";
-import Dish from "@/components/Dish";
+import CreateDish from "@/components/Dishes/CreateDish";
+import Dish from "@/components/Dishes/Dish";
 import Search from "@/components/Search";
 export default {
   name: "DishList",

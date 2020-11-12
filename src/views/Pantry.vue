@@ -1,5 +1,5 @@
 <template>
-  <h1>Pantry</h1>
+  <i></i>
 </template>
 
 <script>

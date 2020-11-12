@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DishList from "@/components/DishList";
+import DishList from "@/components/Dishes/DishList";
 export default {
   name: "Dishes",
   components: { DishList }

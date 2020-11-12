@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from "../store/index";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -43,6 +45,11 @@ const routes = [
 
 const router = new VueRouter({
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  store.dispatch("setActiveSection", to.name);
+  next();
 });
 
 export default router;

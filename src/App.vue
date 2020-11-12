@@ -9,7 +9,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <h1>App bar</h1>
+      <h1>{{ $store.getters['getActiveSection'] }}</h1>
     </v-app-bar>
 
     <v-main>

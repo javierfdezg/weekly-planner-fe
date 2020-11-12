@@ -1,10 +1,14 @@
 <template>
-  <h1>Ingredients</h1>
+  <v-container fluid>
+    <IngredientList/>
+  </v-container>
 </template>
 
 <script>
+import IngredientList from "@/components/Ingredients/IngredientList";
 export default {
-  name: "Ingredients"
+  name: "Ingredients",
+  components: { IngredientList }
 };
 </script>
 
