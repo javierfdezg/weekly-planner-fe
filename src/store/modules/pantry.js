@@ -1,7 +1,18 @@
-// Ingredients Store
+// Pantry Store
 
 const state = () => ({
-  ingredients: ["Tuna", "Bread", "Mayonnaise"]
+  ingredients: [
+    {
+      id: 0,
+      name: "Sweet Corn",
+      amount: "10"
+    },
+    {
+      id: 1,
+      name: "Mayonnaise",
+      amount: "1/2"
+    }
+  ]
 });
 
 const getters = {
@@ -13,12 +24,6 @@ const getters = {
 const actions = {
   addIngredient({ commit }, ingredient) {
     commit("addIngredient", ingredient);
-  },
-  changeSearchString({ commit }, searchString) {
-    commit("changeSearchString", searchString);
-  },
-  updateIngredients({ commit }, ingredients) {
-    commit("updateIngredients", ingredients);
   }
 };
 
@@ -27,9 +32,7 @@ const mutations = {
     state.ingredients.unshift(ingredient);
     state.ingredients = [... new Set(state.ingredients)]
   },
-  updateIngredients(state, ingredients) {
-    state.ingredients = [... new Set(state.ingredients.concat(ingredients))]
-  }
+
 };
 
 export default {

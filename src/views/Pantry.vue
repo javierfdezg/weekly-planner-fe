@@ -1,10 +1,12 @@
 <template>
-  <i></i>
+  <PantryList></PantryList>
 </template>
 
 <script>
+import PantryList from "@/components/Pantry/PantryList";
 export default {
-  name: "Pantry"
+  name: "Pantry",
+  components: {PantryList}
 };
 </script>
 

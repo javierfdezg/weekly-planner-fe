@@ -1,10 +1,12 @@
 <template>
+  <v-container>
+  <CreateIngredient></CreateIngredient>
   <v-simple-table fixed-header height="300px">
     <template v-slot:default>
       <thead>
         <tr>
           <th class="text-left">
-            Name
+            Ingredient
           </th>
         </tr>
       </thead>
@@ -15,11 +17,14 @@
       </tbody>
     </template>
   </v-simple-table>
+  </v-container>
 </template>
 
 <script>
+import CreateIngredient from "@/components/Ingredients/CreateIngredient";
 export default {
-  name: "IngredientList"
+  name: "IngredientList",
+  components: {CreateIngredient}
 };
 </script>
 
