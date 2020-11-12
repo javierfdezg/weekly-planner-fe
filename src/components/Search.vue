@@ -2,6 +2,7 @@
   <v-form>
     <v-autocomplete
       v-model="searchString"
+      append-inner-icon="mdi-magnify"
       :append-icon-cb="hello"
       :disabled="isUpdating"
       :items="$store.getters['dishes/getDishes']"

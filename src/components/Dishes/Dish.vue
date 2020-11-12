@@ -11,7 +11,7 @@
     </v-card-title>
 
     <v-card-subtitle
-      ><v-icon>alarm</v-icon>{{ dish.preparationTime }}</v-card-subtitle
+      ><v-icon>mdi-alarm</v-icon>{{ dish.preparationTime }}</v-card-subtitle
     >
 
     <v-card-text>
