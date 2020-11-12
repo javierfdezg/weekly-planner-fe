@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <Search></Search>
-    <CreateDish :dish="dish"></CreateDish>
+    <CreateDish></CreateDish>
     <v-flex md12 v-for="dish in dishes" v-bind:key="dish.id">
       <Dish :dish="dish" />
     </v-flex>
@@ -15,13 +15,7 @@ import Search from "@/components/Search";
 export default {
   name: "DishList",
   components: { Search, Dish,  CreateDish},
-  data: () => ({
-    dish: {
-      name: "",
-      preparationTime: 0,
-      ingredients: []
-    }
-  }),
+  data: () => ({}),
   props: {
     dishes: Array
   },

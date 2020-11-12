@@ -30,6 +30,8 @@
               <v-combobox
                 :items="$store.getters['ingredients/getIngredients']"
                 v-model="dish.ingredients"
+                :search-input.sync="searchInput"
+                @change="searchInput = ''"
                 clearable
                 hide-selected
                 multiple
@@ -43,7 +45,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn color="blue darken-1" text @click="closeDialog">
           Cancel
         </v-btn>
         <v-btn color="blue darken-1" text @click="addDish">
@@ -57,20 +59,29 @@
 <script>
 export default {
   name: "CreateDish",
-  data: () => ({
-    dialog: false,
-  }),
-  props: {
-    dish: {
-      name: String,
-      preparationTime: Number,
-      ingredients: Array
-    }
+  data: function() {
+    return {
+      dialog: false,
+      searchInput: "",
+      dish: {
+        name: "",
+        ingredients: [],
+        preparationTime: 0,
+        imageURL: ""
+      }
+    };
   },
   methods: {
     addDish: function() {
       this.$store.dispatch("dishes/addDish", this.dish);
+      this.closeDialog();
+    },
+    closeDialog: function() {
       this.dialog = false;
+      this.getNewDish();
+    },
+    getNewDish: function() {
+      this.dish = this.$store.getters['dishes/getNewDish']
     }
   }
 };
