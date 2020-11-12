@@ -6,7 +6,7 @@ const state = () => ({
 
 const getters = {
   getIngredients: function(state) {
-    return state.ingredients;
+    return state.ingredients.sort()
   }
 };
 
@@ -16,12 +16,18 @@ const actions = {
   },
   changeSearchString({ commit }, searchString) {
     commit("changeSearchString", searchString);
+  },
+  updateIngredients({ commit }, ingredients) {
+    commit("updateIngredients", ingredients);
   }
 };
 
 const mutations = {
   addIngredient(state, ingredient) {
     state.dishes.unshift(ingredient);
+  },
+  updateIngredients(state, ingredients) {
+    state.ingredients = [... new Set(state.ingredients.concat(ingredients))]
   }
 };
 

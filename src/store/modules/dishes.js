@@ -48,8 +48,9 @@ const getters = {
 };
 
 const actions = {
-  addDish({ commit }, dish) {
+  addDish: function ({commit}, dish) {
     commit("addDish", dish);
+    this.dispatch("ingredients/updateIngredients", dish.ingredients, {root: true})
   },
   changeSearchString({ commit }, searchString) {
     commit("changeSearchString", searchString);
