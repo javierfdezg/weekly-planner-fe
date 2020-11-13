@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import dishes from "@/store/modules/dishes";
 import ingredients from "@/store/modules/ingredients";
 import pantry from "@/store/modules/pantry";
+import shopping from "@/store/modules/shopping";
 
 Vue.use(Vuex);
 
@@ -28,6 +29,7 @@ export default new Vuex.Store({
   modules: {
     dishes,
     ingredients,
-    pantry
+    pantry,
+    shopping
   }
 });
