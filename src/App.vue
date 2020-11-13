@@ -24,11 +24,11 @@
           nav
           dense
       >
-        <v-list-item link to="/weekly-menus">
+        <v-list-item link to="/menus">
           <v-list-item-icon>
             <v-icon>mdi-calendar</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Weekly Menu</v-list-item-title>
+          <v-list-item-title>Menus</v-list-item-title>
         </v-list-item>
         <v-list-item link to="/dishes">
           <v-list-item-icon>
@@ -64,7 +64,7 @@
     <v-main>
 
       <!-- Provides the application the proper gutter -->
-      <v-container fluid>
+      <v-container fill-height>
 
         <!-- If using vue-router -->
         <router-view></router-view>

@@ -1,8 +1,10 @@
 <template>
-  <v-container>
-    <PantryItemList item-type="ingredient"></PantryItemList>
-    <PantryItemList item-type="otherItem"></PantryItemList>
+  <v-layout>
+    <v-container>
+      <PantryItemList item-type="ingredient"></PantryItemList>
+      <PantryItemList item-type="otherItem"></PantryItemList>
   </v-container>
+  </v-layout>
 </template>
 
 <script>

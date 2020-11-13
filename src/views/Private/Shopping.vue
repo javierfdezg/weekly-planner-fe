@@ -1,8 +1,10 @@
 <template>
-  <v-container>
-    <ShoppingItemList item-type="ingredient"></ShoppingItemList>
-    <ShoppingItemList item-type="otherItem"></ShoppingItemList>
-  </v-container>
+  <v-layout>
+    <v-container>
+      <ShoppingItemList item-type="ingredient"></ShoppingItemList>
+      <ShoppingItemList item-type="otherItem"></ShoppingItemList>
+    </v-container>
+  </v-layout>
 </template>
 
 <script>

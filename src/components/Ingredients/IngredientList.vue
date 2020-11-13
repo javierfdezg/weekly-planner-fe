@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <CreateIngredient></CreateIngredient>
     <v-simple-table fixed-header height="300px">
       <template v-slot:default>
         <thead>
@@ -24,10 +23,9 @@
 </template>
 
 <script>
-import CreateIngredient from "@/components/Ingredients/CreateIngredient";
 export default {
   name: "IngredientList",
-  components: { CreateIngredient }
+  components: {}
 };
 </script>
 
