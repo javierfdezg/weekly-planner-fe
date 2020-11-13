@@ -2,42 +2,32 @@
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="primary" dark v-bind="attrs" v-on="on">
-        Add dish
+        Add {{ itemTypeString }}
       </v-btn>
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Add Dish</span>
+        <span class="headline">Add {{ itemTypeString }}</span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row>
             <v-col cols="12">
               <v-text-field
-                v-model="dish.name"
-                label="Name*"
+                v-model="item.name"
+                v-bind:label="itemTypeString+'*'"
                 required
               ></v-text-field>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="12">
               <v-text-field
-                type="number"
-                v-model="dish.preparationTime"
-                label="Preparation Time"
+                type="Number"
+                v-model="item.amount"
+                label="Amount*"
+                required
               ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-combobox
-                :items="$store.getters['item/getIngredients']"
-                v-model="dish.ingredients"
-                :search-input.sync="searchInput"
-                @change="searchInput = ''"
-                clearable
-                hide-selected
-                multiple
-                persistent-hint
-                small-chips
-              ></v-combobox>
             </v-col>
           </v-row>
         </v-container>
@@ -48,7 +38,7 @@
         <v-btn color="blue darken-1" text @click="closeDialog">
           Cancel
         </v-btn>
-        <v-btn color="blue darken-1" text @click="addDish">
+        <v-btn color="blue darken-1" text @click="addItem">
           Save
         </v-btn>
       </v-card-actions>
@@ -58,30 +48,36 @@
 
 <script>
 export default {
-  name: "CreateDish",
+  name: "AddItem",
   data: function() {
     return {
       dialog: false,
-      searchInput: "",
-      dish: {
+      item: {
         name: "",
-        ingredients: [],
-        preparationTime: 0,
-        imageURL: ""
+        amount: ""
       }
     };
   },
+  props: {
+    itemType: String
+  },
+  computed: {
+    itemTypeString: function() {
+      return this.itemType == "ingredient" ? "Ingredient" : "Other Item";
+    }
+  },
   methods: {
-    addDish: function() {
-      this.$store.dispatch("dishes/addDish", this.dish);
+    addItem: function() {
+      this.item.type = this.props.itemType;
+      this.$store.dispatch("pantry/addItem", this.item);
       this.closeDialog();
     },
     closeDialog: function() {
       this.dialog = false;
-      this.getNewDish();
+      this.clearIngredient();
     },
-    getNewDish: function() {
-      this.dish = this.$store.getters['dishes/getNewDish']
+    clearItem: function() {
+      this.item = this.$store.getters["pantry/getNewItem"](this.props.itemType);
     }
   }
 };

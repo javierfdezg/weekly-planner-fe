@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in $store.getters['ingredients/getIngredients']" v-bind:key="item">
+        <tr v-for="item in $store.getters['item/getIngredients']" v-bind:key="item">
           <td>{{ item }}</td>
         </tr>
       </tbody>

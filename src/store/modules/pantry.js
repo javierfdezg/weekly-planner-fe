@@ -1,38 +1,54 @@
 // Pantry Store
 
 const state = () => ({
-  ingredients: [
+  items: [
     {
       id: 0,
       name: "Sweet Corn",
-      amount: "10"
+      amount: "10",
+      type: "ingredient"
     },
     {
       id: 1,
       name: "Mayonnaise",
-      amount: "1/2"
+      amount: "1/2",
+      type: "ingredient"
+    },
+    {
+      id: 2,
+      name: "Diet Cola",
+      amount: "1",
+      type: "Other item"
     }
   ]
 });
 
 const getters = {
-  getIngredients: function(state) {
-    return state.ingredients.sort()
+  getItems: (state) => (itemType) => {
+    return state.items.filter((item) => {
+      return item.type === itemType;
+    });
+  },
+  getNewItem: () => (itemType) => {
+    return Object.create({
+      name: "",
+      amount: 0,
+      type: itemType
+    });
   }
 };
 
 const actions = {
-  addIngredient({ commit }, ingredient) {
-    commit("addIngredient", ingredient);
+  addItem({ commit }, item) {
+    commit("addItem", item);
   }
 };
 
 const mutations = {
-  addIngredient(state, ingredient) {
-    state.ingredients.unshift(ingredient);
-    state.ingredients = [... new Set(state.ingredients)]
-  },
-
+  addItem(state, item) {
+    state.items.unshift(item);
+    state.item = [...new Set(state.items)];
+  }
 };
 
 export default {

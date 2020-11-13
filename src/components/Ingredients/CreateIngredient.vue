@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     addIngredient: function() {
-      this.$store.dispatch("ingredients/addIngredient", this.ingredient);
+      this.$store.dispatch("item/addIngredient", this.ingredient);
       this.closeDialog();
     },
     closeDialog: function() {

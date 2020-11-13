@@ -1,29 +1,26 @@
 <template>
   <v-container>
+    <AddIngredient></AddIngredient>
     <v-simple-table fixed-header height="300px">
       <template v-slot:default>
         <thead>
-          <tr>
-            <th class="text-left">
-              Ingredients
-            </th>
-            <th class="text-left">
-              Amount
-            </th>
-            <th class="text-left">
-              Location
-            </th>
-          </tr>
+        <tr>
+          <th class="text-left">
+            Ingredient
+          </th>
+          <th class="text-left">
+            How much?
+          </th>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="item in $store.getters['shopping/getIngredients']"
+        <tr
+            v-for="item in $store.getters['pantry/getIngredients']"
             v-bind:key="item.id"
-          >
-            <td>{{ item.name }}</td>
-            <td>{{ item.amount }}</td>
-            <td>{{ item.location }}</td>
-          </tr>
+        >
+          <td>{{ item.name }}</td>
+          <td>{{ item.amount }}</td>
+        </tr>
         </tbody>
       </template>
     </v-simple-table>
@@ -31,9 +28,10 @@
 </template>
 
 <script>
+import AddIngredient from "@/components/Pantry/AddItem";
 export default {
-  name: "ShoppingIngredientList",
-  components: {}
+  name: "PantryIngredientList",
+  components: {AddIngredient}
 };
 </script>
 
