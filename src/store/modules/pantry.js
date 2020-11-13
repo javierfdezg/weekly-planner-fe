@@ -47,7 +47,7 @@ const actions = {
 const mutations = {
   addItem(state, item) {
     state.items.unshift(item);
-    state.item = [...new Set(state.items)];
+    state.items = [...new Set(state.items)];
   }
 };
 

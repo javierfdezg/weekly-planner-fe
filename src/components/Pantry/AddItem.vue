@@ -23,7 +23,6 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
-                type="Number"
                 v-model="item.amount"
                 label="Amount*"
                 required
@@ -68,16 +67,16 @@ export default {
   },
   methods: {
     addItem: function() {
-      this.item.type = this.props.itemType;
+      this.item.type = this.itemType;
       this.$store.dispatch("pantry/addItem", this.item);
       this.closeDialog();
     },
     closeDialog: function() {
       this.dialog = false;
-      this.clearIngredient();
+      this.clearItem();
     },
     clearItem: function() {
-      this.item = this.$store.getters["pantry/getNewItem"](this.props.itemType);
+      this.item = this.$store.getters["pantry/getNewItem"](this.itemType);
     }
   }
 };
