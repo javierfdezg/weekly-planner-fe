@@ -1,16 +1,15 @@
 <template>
   <v-container>
-    <ShoppingIngredientList></ShoppingIngredientList>
-    <ShoppingOtherItemList></ShoppingOtherItemList>
+    <ShoppingItemList item-type="ingredient"></ShoppingItemList>
+    <ShoppingItemList item-type="otherItem"></ShoppingItemList>
   </v-container>
 </template>
 
 <script>
-import ShoppingIngredientList from "@/components/Shopping/ShoppingIngredientList";
-import ShoppingOtherItemList from "@/components/Shopping/ShoppingOtherItemList";
+import ShoppingItemList from "@/components/Shopping/ShoppingItemList";
 export default {
   name: "ShoppingList",
-  components: {ShoppingOtherItemList, ShoppingIngredientList}
+  components: {ShoppingItemList}
 };
 </script>
 

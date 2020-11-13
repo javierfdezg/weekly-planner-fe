@@ -1,11 +1,12 @@
 <template>
   <v-container>
+    <AddItem :item-type="itemType"></AddItem>
     <v-simple-table fixed-header height="300px">
       <template v-slot:default>
         <thead>
           <tr>
             <th class="text-left">
-              Other Items
+              {{ itemTypeString }}
             </th>
             <th class="text-left">
               Amount
@@ -17,7 +18,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in $store.getters['shopping/getOtherItems']"
+            v-for="item in $store.getters['shopping/getItems'](itemType)"
             v-bind:key="item.id"
           >
             <td>{{ item.name }}</td>
@@ -31,9 +32,18 @@
 </template>
 
 <script>
+import AddItem from "@/components/Shopping/AddItem";
 export default {
-  name: "ShoppingOtherItemList",
-  components: {}
+  name: "ShoppingItemList",
+  components: {AddItem},
+  computed: {
+    itemTypeString: function () {
+      return this.itemType === "ingredient" ? "Ingredients" : "Other Items";
+    }
+  },
+  props: {
+    itemType: String
+  }
 };
 </script>
 

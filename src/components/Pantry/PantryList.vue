@@ -2,7 +2,6 @@
   <v-container>
     <PantryItemList item-type="ingredient"></PantryItemList>
     <PantryItemList item-type="otherItem"></PantryItemList>
-
   </v-container>
 </template>
 
