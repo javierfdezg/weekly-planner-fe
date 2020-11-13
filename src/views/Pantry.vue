@@ -1,12 +1,15 @@
 <template>
-  <PantryList></PantryList>
+  <v-container>
+    <PantryItemList item-type="ingredient"></PantryItemList>
+    <PantryItemList item-type="otherItem"></PantryItemList>
+  </v-container>
 </template>
 
 <script>
-import PantryList from "@/components/Pantry/PantryList";
+import PantryItemList from "@/components/Pantry/PantryItemList";
 export default {
   name: "Pantry",
-  components: {PantryList}
+  components: {PantryItemList}
 };
 </script>
 
