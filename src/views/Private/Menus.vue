@@ -91,44 +91,7 @@ export default {
   },
   methods: {
     periodChanged: function(range) {
-      let start = Date.parse(range.periodStart);
-      let end = Date.parse(range.periodEnd);
-
-      let loop = new Date(start);
-      let items = [];
-
-      while (loop <= end) {
-        items.push(
-          this.$store.getters["menus/getNewItem"](
-            "breakfast",
-            loop.getDate(),
-            loop.getMonth(),
-            loop.getFullYear()
-          )
-        );
-        items.push(
-          this.$store.getters["menus/getNewItem"](
-            "lunch",
-            loop.getDate(),
-            loop.getMonth(),
-            loop.getFullYear()
-          )
-        );
-        items.push(
-          this.$store.getters["menus/getNewItem"](
-            "dinner",
-            loop.getDate(),
-            loop.getMonth(),
-            loop.getFullYear()
-          )
-        );
-
-        let newDate = loop.setDate(loop.getDate() + 1);
-        loop = new Date(newDate);
-      }
-
-      this.$store.dispatch("menus/updateItems", items);
-      this.items = this.$store.getters["menus/getItems"];
+      this.items = this.$store.getters["menus/getItemsForRange"](range);
     },
     thisMonth(d, h, m) {
       const t = new Date();

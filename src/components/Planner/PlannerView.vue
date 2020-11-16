@@ -692,7 +692,9 @@ header are in the CalendarViewHeader component.
 .cv-wrapper div {
   box-sizing: border-box;
   line-height: 1em;
-  font-size: 1em;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .cv-header-days {
