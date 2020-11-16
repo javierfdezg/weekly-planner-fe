@@ -18,6 +18,7 @@
       :enable-date-selection="true"
       :selection-start="selectionStart"
       :selection-end="selectionEnd"
+      :item-content-height="itemContentHeight"
       @date-selection-start="setSelection"
       @date-selection="setSelection"
       @date-selection-finish="finishSelection"
@@ -36,7 +37,11 @@
 </template>
 
 <script>
-import { CalendarView, CalendarViewHeader, CalendarMathMixin } from "vue-simple-calendar";
+import {
+  CalendarView,
+  CalendarViewHeader,
+  CalendarMathMixin
+} from "vue-simple-calendar";
 
 export default {
   name: "Menus",
@@ -45,7 +50,7 @@ export default {
   data() {
     return {
       /* Show the current month, and give it some fake items to show */
-      showDate: this.thisMonth(1),
+      showDate: this.thisMonth(new Date().getDate()),
       message: "",
       startingDayOfWeek: 1,
       disablePast: false,
@@ -53,7 +58,7 @@ export default {
       displayPeriodUom: "week",
       displayPeriodCount: 1,
       displayWeekNumbers: false,
-      showTimes: true,
+      showTimes: false,
       selectionStart: null,
       selectionEnd: null,
       newItemTitle: "",
@@ -62,79 +67,8 @@ export default {
       useDefaultTheme: true,
       useHolidayTheme: true,
       useTodayIcons: false,
-      items: [
-        {
-          id: "e0",
-          startDate: "2018-01-05"
-        },
-        {
-          id: "e1",
-          startDate: this.thisMonth(15, 18, 30)
-        },
-        {
-          id: "e2",
-          startDate: this.thisMonth(15),
-          title: "Single-day item with a long title"
-        },
-        {
-          id: "e3",
-          startDate: this.thisMonth(7, 9, 25),
-          endDate: this.thisMonth(10, 16, 30),
-          title: "Multi-day item with a long title and times"
-        },
-        {
-          id: "e4",
-          startDate: this.thisMonth(20),
-          title: "My Birthday!",
-          classes: "birthday",
-          url: "https://en.wikipedia.org/wiki/Birthday"
-        },
-        {
-          id: "e5",
-          startDate: this.thisMonth(5),
-          endDate: this.thisMonth(12),
-          title: "Multi-day item",
-          classes: "purple"
-        },
-        {
-          id: "foo",
-          startDate: this.thisMonth(29),
-          title: "Same day 1"
-        },
-        {
-          id: "e6",
-          startDate: this.thisMonth(29),
-          title: "Same day 2",
-          classes: "orange"
-        },
-        {
-          id: "e7",
-          startDate: this.thisMonth(29),
-          title: "Same day 3"
-        },
-        {
-          id: "e8",
-          startDate: this.thisMonth(29),
-          title: "Same day 4",
-          classes: "orange"
-        },
-        {
-          id: "e9",
-          startDate: this.thisMonth(29),
-          title: "Same day 5"
-        },
-        {
-          id: "e10",
-          startDate: this.thisMonth(29),
-          title: "Same day 6",
-          classes: "orange"
-        },
-        {
-          id: "e11",
-          startDate: this.thisMonth(29),
-          title: "Same day 7"
-        }
-      ]
+      itemContentHeight: "10em",
+      items: []
     };
   },
   computed: {
@@ -148,7 +82,8 @@ export default {
       return {
         "theme-default": this.useDefaultTheme,
         "holiday-us-traditional": this.useHolidayTheme,
-        "holiday-us-official": this.useHolidayTheme
+        "holiday-us-official": this.useHolidayTheme,
+        "custom-class": true
       };
     }
   },
@@ -157,12 +92,45 @@ export default {
     this.newItemEndDate = this.isoYearMonthDay(this.today());
   },
   methods: {
-    periodChanged() {
-      // range, eventSource) {
-      // Demo does nothing with this information, just including the method to demonstrate how
-      // you can listen for changes to the displayed range and react to them (by loading items, etc.)
-      //console.log(eventSource)
-      //console.log(range)
+    periodChanged: function(range) {
+      let start = Date.parse(range.periodStart);
+      let end = Date.parse(range.periodEnd);
+
+      let loop = new Date(start);
+      let items = [];
+
+      while (loop <= end) {
+        items.push(
+          this.$store.getters["menus/getNewItem"](
+            "breakfast",
+            loop.getDate(),
+            loop.getMonth(),
+            loop.getFullYear()
+          )
+        );
+        items.push(
+          this.$store.getters["menus/getNewItem"](
+            "lunch",
+            loop.getDate(),
+            loop.getMonth(),
+            loop.getFullYear()
+          )
+        );
+        items.push(
+          this.$store.getters["menus/getNewItem"](
+            "dinner",
+            loop.getDate(),
+            loop.getMonth(),
+            loop.getFullYear()
+          )
+        );
+
+        let newDate = loop.setDate(loop.getDate() + 1);
+        loop = new Date(newDate);
+      }
+
+      this.$store.dispatch("menus/updateItems", items);
+      this.items = this.$store.getters["menus/getItems"];
     },
     thisMonth(d, h, m) {
       const t = new Date();
@@ -213,4 +181,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.theme-default .cv-item {
+  height: 10em;
+}
+</style>
