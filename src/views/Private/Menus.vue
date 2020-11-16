@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <calendar-view
+    <planner-view
       :items="items"
       :show-date="showDate"
       :time-format-options="{ hour: 'numeric', minute: '2-digit' }"
@@ -26,27 +26,25 @@
       @click-date="onClickDay"
       @click-item="onClickItem"
     >
-      <calendar-view-header
+      <planner-header
         slot="header"
         slot-scope="{ headerProps }"
         :header-props="headerProps"
         @input="setShowDate"
       />
-    </calendar-view>
+    </planner-view>
   </v-container>
 </template>
 
 <script>
-import {
-  CalendarView,
-  CalendarViewHeader,
-  CalendarMathMixin
-} from "vue-simple-calendar";
+import PlannerView from "@/components/Planner/PlannerView";
+import PlannerHeader from "@/components/Planner/PlannerHeader";
+import PlannerMathMixin from "@/components/Planner/PlannerMathMixin";
 
 export default {
   name: "Menus",
-  components: { CalendarView, CalendarViewHeader },
-  mixins: [CalendarMathMixin],
+  components: { PlannerView, PlannerHeader },
+  mixins: [PlannerMathMixin],
   data() {
     return {
       /* Show the current month, and give it some fake items to show */

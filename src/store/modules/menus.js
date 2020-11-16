@@ -1,7 +1,12 @@
 // Menus Store
 
 const state = () => ({
-  items: []
+  items: [{
+    id: `2020-10-16-lunch`,
+    startDate: getDate(16, 10, 2020, 12, 0),
+    endDate: getDate(16, 10, 2020, 18, 0),
+    title: 'Real'
+  }]
 });
 
 function getDate(day, month, year, h, m) {
@@ -47,7 +52,8 @@ const getters = {
         id: `${year}-${month}-${day}-${type}`,
         startDate: newItemDate.startDate,
         endDate: newItemDate.endDate,
-        title: type
+        title: type,
+        isPlaceHolder: true
       });
     };
   }
