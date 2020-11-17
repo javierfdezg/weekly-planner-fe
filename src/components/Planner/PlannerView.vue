@@ -2,6 +2,7 @@
   <div
     aria-label="Calendar"
     :class="[
+      'planner-view',
       'cv-wrapper',
       'locale-' + languageCode(displayLocale),
       'locale-' + displayLocale,
@@ -118,8 +119,30 @@
                 @mouseenter="onMouseEnterItem(i, $event)"
                 @mouseleave="onMouseLeaveItem(i, $event)"
                 @click.stop="onClickItem(i, $event)"
-                v-html="getItemTitle(i)"
-              />
+              >
+                <v-card class="mx-auto" max-width="344">
+                  <v-card-text>
+                    <div>{{ i.originalItem.type | capitalize }}</div>
+                    <v-list>
+                      <v-list-item v-for="dish in i.originalItem.dishes" v-bind:key="dish.id">
+                        <v-list-item-content>{{ dish.name }}</v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </v-card-text>
+                  <v-card-actions v-if="!i.originalItem.dishes">
+                    <v-btn text color="deep-purple">
+                      Add dish
+                    </v-btn>
+                  </v-card-actions>
+                  <v-card-actions  v-if="i.originalItem.dishes">
+                    <v-spacer></v-spacer>
+                      <v-container>
+                        <v-icon>mdi-alarm</v-icon>
+                        <label>{{ calculatePreparationTime(i.originalItem.dishes) }}</label>
+                      </v-container>
+                  </v-card-actions>
+                </v-card>
+              </div>
             </slot>
           </template>
         </div>
@@ -373,6 +396,15 @@ export default {
   },
 
   methods: {
+    calculatePreparationTime: function (dishes) {
+      if (!dishes || dishes.length == 0) {
+        return 0;
+      }
+
+      return dishes.reduce(function (total, dish) {
+        return total + dish.preparationTime;
+      }, 0);
+    },
     // ******************************
     // UI Events
     // ******************************
@@ -587,6 +619,7 @@ export default {
       // Return a list of items that CONTAIN the week starting on a day.
       // Sorted so the items that start earlier are always shown first.
       const items = this.findAndSortItemsInWeek(weekStart);
+      console.log(items);
       const results = [];
       const itemRows = [[], [], [], [], [], [], []];
       for (let i = 0; i < items.length; i++) {
@@ -928,4 +961,33 @@ _:-ms-lang(x),
   width: 0; /* remove scrollbar space */
   background: transparent; /* optional: just make scrollbar invisible */
 }
+
+.planner-view .v-list-item {
+  padding: 0 !important;
+  line-height: 0.5em;
+  min-height: 0.5em;
+}
+
+.planner-view .v-card__subtitle,
+.planner-view .v-card__text,
+.planner-view .v-card__title {
+    padding: 4px;
+}
+
+.planner-view .v-list-item__content {
+    padding: 2px 0;
+}
+
+.planner-view .v-card {
+  min-height: 9.5em;
+}
+
+.planner-view .v-card .v-card__actions {
+  padding: 4px;
+}
+
+.planner-view .v-card .container {
+  padding: 0px;
+}
 </style>
+

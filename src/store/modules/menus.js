@@ -7,14 +7,38 @@ const state = () => ({
       startDate: getDate(16, 10, 2020, 12, 0),
       endDate: getDate(16, 10, 2020, 18, 0),
       title: "Real1",
-      type: "lunch"
+      type: "lunch",
+      dishes: [
+        {
+          id: "d0",
+          name: "Pumpkin puree",
+          preparationTime: 120
+        },
+        {
+          id: "d1",
+          name: "Roasted chicken",
+          preparationTime: 20
+        }
+      ]
     },
     {
       id: `2020-10-17-lunch`,
       startDate: getDate(17, 10, 2020, 12, 0),
       endDate: getDate(17, 10, 2020, 18, 0),
       title: "Real2",
-      type: "lunch"
+      type: "lunch",
+      dishes: [
+        {
+          id: "d0",
+          name: "Pasta salad",
+          preparationTime: 20
+        },
+        {
+          id: "d1",
+          name: "Tuna sandwich",
+          preparationTime: 15
+        }
+      ]
     }
   ]
 });
@@ -64,7 +88,7 @@ function getNewItem(type, day, month, year, placeholder) {
 }
 
 function getMealsForDay(state, dateString) {
-  return state.items.filter(item => {
+  let items = state.items.filter(item => {
     let itemDate = new Date(item.startDate.toDateString())
       .toISOString()
       .split("T")[0];
@@ -72,6 +96,8 @@ function getMealsForDay(state, dateString) {
 
     return itemDate === date;
   });
+
+  return items;
 }
 
 function getCountForMealType(meals, type) {
@@ -95,9 +121,9 @@ const getters = {
       while (loop <= end) {
         let meals = getMealsForDay(state, new Date(loop).toDateString());
 
-        let breakfastCount = getCountForMealType(meals, 'breakfast');
-        let lunchCount = getCountForMealType(meals, 'lunch');
-        let dinnerCount = getCountForMealType(meals, 'dinner');
+        let breakfastCount = getCountForMealType(meals, "breakfast");
+        let lunchCount = getCountForMealType(meals, "lunch");
+        let dinnerCount = getCountForMealType(meals, "dinner");
 
         if (0 === breakfastCount) {
           items.push(
