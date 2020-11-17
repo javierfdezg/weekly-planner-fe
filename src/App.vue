@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer app permanent>
+    <v-navigation-drawer app permanent class="navigation-menu">
       <v-list>
         <v-list-item class="px-2">
           <v-list-item-avatar>
@@ -78,5 +78,7 @@
 </template>
 
 <style>
-
+.navigation-menu .v-list-item__content {
+    padding: 16px 12px;
+}
 </style>
