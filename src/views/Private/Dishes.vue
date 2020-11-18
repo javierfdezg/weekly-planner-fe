@@ -20,11 +20,11 @@ import Dish from "@/components/Dishes/Dish";
 import Search from "@/components/Search";
 export default {
   name: "DishList",
+  created: function() {
+    this.$store.dispatch('dishes/getDishes')
+  },
   components: { Search, Dish, CreateDish },
   data: () => ({}),
-  props: {
-    dishes: Array
-  },
   methods: {}
 };
 </script>

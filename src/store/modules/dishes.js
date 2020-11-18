@@ -1,40 +1,14 @@
-
 // Dishes Store
+
+import DishesService from "@/api/services/Dishes";
 
 const state = () => ({
   searchString: "",
-  dishes: [
-    {
-      id: 0,
-      name: "Pasta Salad",
-      ingredients: ["Laces", "Sweet corn", "Ham"],
-      preparationTime: 10,
-      imageUrl: "https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    },
-    {
-      id: 1,
-      name: "Pasta Salad",
-      ingredients: ["Laces", "Sweet corn", "Ham"],
-      preparationTime: 10,
-      imageUrl: "https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    },
-    {
-      id: 2,
-      name: "Pasta Salad",
-      ingredients: ["Laces", "Sweet corn", "Ham"],
-      preparationTime: 10,
-      imageUrl: "https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    }
-  ]
+  dishes: []
 });
 
 const getters = {
   getDishes: function(state) {
-    if (state.searchString) {
-      return state.dishes.filter(dish => {
-        return dish.name.contains(state.searchString);
-      });
-    }
     return state.dishes;
   },
   getNewDish() {
@@ -48,12 +22,19 @@ const getters = {
 };
 
 const actions = {
-  addDish: function ({commit}, dish) {
+  addDish: function({ commit }, dish) {
     commit("addDish", dish);
-    this.dispatch("ingredients/updateIngredients", dish.ingredients, {root: true})
+    this.dispatch("ingredients/updateIngredients", dish.ingredients, {
+      root: true
+    });
   },
   changeSearchString({ commit }, searchString) {
     commit("changeSearchString", searchString);
+  },
+  getDishes: function({ commit }) {
+    DishesService.getDishes().then(response => {
+      commit("SET_DISHES", response.data.dishes);
+    });
   }
 };
 
@@ -63,6 +44,10 @@ const mutations = {
   },
   changeSearchString(state, searchString) {
     state.searchString = searchString;
+  },
+  SET_DISHES(state, dishes) {
+    console.log(dishes)
+    state.dishes = dishes
   }
 };
 
