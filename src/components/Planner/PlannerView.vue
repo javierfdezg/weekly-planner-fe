@@ -122,7 +122,7 @@
               >
                 <v-card class="mx-auto" max-width="344">
                   <v-card-text>
-                    <div>{{ i.originalItem.type | capitalize }}</div>
+                    <v-card-title>{{ i.originalItem.type | capitalize }}</v-card-title>
                     <v-list>
                       <v-list-item v-for="dish in i.originalItem.dishes" v-bind:key="dish.id">
                         <v-list-item-content>{{ dish.name }}</v-list-item-content>
@@ -135,11 +135,9 @@
                     </v-btn>
                   </v-card-actions>
                   <v-card-actions  v-if="i.originalItem.dishes">
-                    <v-spacer></v-spacer>
-                      <v-container>
-                        <v-icon>mdi-alarm</v-icon>
-                        <label>{{ calculatePreparationTime(i.originalItem.dishes) }}</label>
-                      </v-container>
+                    <v-card-subtitle>
+                      <v-icon>mdi-alarm</v-icon>{{ calculatePreparationTime(i.originalItem.dishes) }}
+                    </v-card-subtitle>
                   </v-card-actions>
                 </v-card>
               </div>

@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-navigation-drawer app permanent class="navigation-menu">
+    <v-navigation-drawer app permanent expand-on-hover class="navigation-menu">
       <v-list>
         <v-list-item class="px-2">
           <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+            <v-img src="https://media-exp1.licdn.com/dms/image/C4E03AQF6JdnUMLS4Zw/profile-displayphoto-shrink_200_200/0?e=1611187200&v=beta&t=Ei0T9gcrGksPWoKTQUAeOdj-DBF1cdzSzxot-Cym-pw"></v-img>
           </v-list-item-avatar>
         </v-list-item>
 
@@ -32,25 +32,25 @@
         </v-list-item>
         <v-list-item link to="/dishes">
           <v-list-item-icon>
-            <v-icon>mdi-food-variant</v-icon>
+            <v-icon>mdi-silverware-variant</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Dishes</v-list-item-title>
         </v-list-item>
         <v-list-item link to="/ingredients">
           <v-list-item-icon>
-            <v-icon>mdi-food-apple</v-icon>
+            <v-icon>mdi-food-variant</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Ingredients</v-list-item-title>
         </v-list-item>
         <v-list-item link to="/pantry">
           <v-list-item-icon>
-            <v-icon>mdi-format-list-bulleted</v-icon>
+            <v-icon>mdi-fridge</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Pantry</v-list-item-title>
         </v-list-item>
         <v-list-item link to="/shopping">
           <v-list-item-icon>
-            <v-icon>mdi-shopping</v-icon>
+            <v-icon>mdi-cart</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Shopping</v-list-item-title>
         </v-list-item>

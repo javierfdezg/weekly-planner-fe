@@ -189,12 +189,18 @@ const getters = {
 };
 
 const actions = {
+  addItem: function({ commit }, item) {
+    commit("addItem", item);
+  },
   updateItems: function({ commit }, items) {
     commit("updateItems", items);
   }
 };
 
 const mutations = {
+  addItem(state, item) {
+    state.items.push(item);
+  },
   updateItems(state, items) {
     state.items = items;
   }

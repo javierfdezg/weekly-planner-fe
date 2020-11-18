@@ -125,7 +125,7 @@ export default {
       item.originalItem.startDate = this.addDays(item.startDate, eLength);
       item.originalItem.endDate = this.addDays(item.endDate, eLength);
     },
-    clickTestAddItem() {
+    addItem() {
       this.items.push({
         startDate: this.newItemStartDate,
         endDate: this.newItemEndDate,
