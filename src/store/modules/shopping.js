@@ -50,12 +50,12 @@ const getters = {
 
 const actions = {
   addItem({ commit }, item) {
-    commit("addItem", item);
+    commit("ADD_ITEM", item);
   }
 };
 
 const mutations = {
-  addItem(state, item) {
+  ADD_ITEM(state, item) {
     state.items.unshift(item);
     state.items = [...new Set(state.items)];
   }

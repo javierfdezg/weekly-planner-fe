@@ -12,22 +12,22 @@ const getters = {
 
 const actions = {
   addIngredient({ commit }, ingredient) {
-    commit("addIngredient", ingredient);
+    commit("ADD_INGREDIENT", ingredient);
   },
-  changeSearchString({ commit }, searchString) {
-    commit("changeSearchString", searchString);
+  updateSearchString({ commit }, searchString) {
+    commit("UPDATE_SEARCH_STRING", searchString);
   },
   updateIngredients({ commit }, ingredients) {
-    commit("updateIngredients", ingredients);
+    commit("UPDATE_INGREDIENTS", ingredients);
   }
 };
 
 const mutations = {
-  addIngredient(state, ingredient) {
+  ADD_INGREDIENT(state, ingredient) {
     state.ingredients.unshift(ingredient);
     state.ingredients = [... new Set(state.ingredients)]
   },
-  updateIngredients(state, ingredients) {
+  UPDATE_INGREDIENT(state, ingredients) {
     state.ingredients = [... new Set(state.ingredients.concat(ingredients))]
   }
 };

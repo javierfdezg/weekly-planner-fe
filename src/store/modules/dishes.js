@@ -23,13 +23,13 @@ const getters = {
 
 const actions = {
   addDish: function({ commit }, dish) {
-    commit("addDish", dish);
+    commit("ADD_DISH", dish);
     this.dispatch("ingredients/updateIngredients", dish.ingredients, {
       root: true
     });
   },
   changeSearchString({ commit }, searchString) {
-    commit("changeSearchString", searchString);
+    commit("UPDATE_SEARCH_STRING", searchString);
   },
   getDishes: function({ commit }) {
     DishesService.getDishes().then(response => {
@@ -39,10 +39,10 @@ const actions = {
 };
 
 const mutations = {
-  addDish(state, dish) {
+  ADD_DISH(state, dish) {
     state.dishes.unshift(dish);
   },
-  changeSearchString(state, searchString) {
+  UPDATE_SEARCH_STRING(state, searchString) {
     state.searchString = searchString;
   },
   SET_DISHES(state, dishes) {

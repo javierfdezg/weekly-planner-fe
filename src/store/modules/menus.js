@@ -190,18 +190,18 @@ const getters = {
 
 const actions = {
   addItem: function({ commit }, item) {
-    commit("addItem", item);
+    commit("ADD_ITEM", item);
   },
   updateItems: function({ commit }, items) {
-    commit("updateItems", items);
+    commit("UPDATE_ITEMS", items);
   }
 };
 
 const mutations = {
-  addItem(state, item) {
+  ADD_ITEM(state, item) {
     state.items.push(item);
   },
-  updateItems(state, items) {
+  UPDATE_ITEMS(state, items) {
     state.items = items;
   }
 };
