@@ -3,7 +3,7 @@
 import DishesService from "@/api/services/Dishes";
 
 const state = () => ({
-  searchString: "",
+  isSearching: false,
   dishes: []
 });
 
@@ -18,6 +18,9 @@ const getters = {
       preparationTime: 0,
       imageURL: ""
     });
+  },
+  getIsSearching: function(state) {
+    return state.isSearching;
   }
 };
 
@@ -28,11 +31,9 @@ const actions = {
       root: true
     });
   },
-  changeSearchString({ commit }, searchString) {
-    commit("UPDATE_SEARCH_STRING", searchString);
-  },
-  getDishes: function({ commit }) {
-    DishesService.getDishes().then(response => {
+  getDishes: function({ commit }, searchString) {
+    this.state.isSearching = true;
+    DishesService.getDishes(searchString).then(response => {
       commit("SET_DISHES", response.data.dishes);
     });
   }
@@ -42,12 +43,9 @@ const mutations = {
   ADD_DISH(state, dish) {
     state.dishes.unshift(dish);
   },
-  UPDATE_SEARCH_STRING(state, searchString) {
-    state.searchString = searchString;
-  },
   SET_DISHES(state, dishes) {
-    console.log(dishes)
-    state.dishes = dishes
+    state.dishes = dishes;
+    this.state.isSearching = false;
   }
 };
 
