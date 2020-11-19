@@ -71,17 +71,29 @@ export default {
       }
     };
   },
+  computed: {
+    showDialog: function() {
+      return this.$store.getters['dishes/getIsCreatingDish'];
+    }
+  },
+  watch: {
+    dialog: function(status) {
+      this.$store.dispatch("dishes/setIsCreatingDish", status);
+    },
+    showDialog(newVal) {
+      this.dialog = newVal
+    }
+  },
   methods: {
     addDish: function() {
       this.$store.dispatch("dishes/addDish", this.dish);
-      this.closeDialog();
     },
     closeDialog: function() {
-      this.dialog = false;
+      this.$store.dispatch("dishes/setIsCreatingDish", false);
       this.getNewDish();
     },
     getNewDish: function() {
-      this.dish = this.$store.getters['dishes/getNewDish']
+      this.dish = this.$store.getters["dishes/getNewDish"];
     }
   }
 };

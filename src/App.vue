@@ -64,7 +64,7 @@
     <v-main>
 
       <!-- Provides the application the proper gutter -->
-      <v-container fill-height>
+      <v-container>
 
         <!-- If using vue-router -->
         <router-view></router-view>

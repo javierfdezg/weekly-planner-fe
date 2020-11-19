@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container class="planner">
     <planner-view
       :items="items"
       :show-date="showDate"
@@ -13,7 +13,7 @@
       :starting-day-of-week="startingDayOfWeek"
       :class="themeClasses"
       :period-changed-callback="periodChanged"
-      :current-period-label="useTodayIcons ? 'icons' : ''"
+      :current-period-label="useTodayIcons ? 'Current week' : ''"
       :displayWeekNumbers="displayWeekNumbers"
       :enable-date-selection="true"
       :selection-start="selectionStart"
@@ -64,7 +64,7 @@ export default {
       newItemEndDate: "",
       useDefaultTheme: true,
       useHolidayTheme: true,
-      useTodayIcons: false,
+      useTodayIcons: true,
       itemContentHeight: "10em",
       items: []
     };
@@ -145,5 +145,9 @@ export default {
 <style>
 .theme-default .cv-item {
   height: 10em;
+}
+
+.planner {
+  height: 500px;
 }
 </style>

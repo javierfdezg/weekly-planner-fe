@@ -27,7 +27,7 @@ const mutations = {
     state.ingredients.unshift(ingredient);
     state.ingredients = [... new Set(state.ingredients)]
   },
-  UPDATE_INGREDIENT(state, ingredients) {
+  UPDATE_INGREDIENTS(state, ingredients) {
     state.ingredients = [... new Set(state.ingredients.concat(ingredients))]
   }
 };

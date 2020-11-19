@@ -32,6 +32,16 @@ mock.onGet("/dishes").reply(200, {
   dishes: dishList
 });
 
+mock.onPost("/dishes").reply(200, {
+  dishes: dishList.push({
+    id: 3,
+    name: "Tuna sandwich",
+    ingredients: ["Laces", "Sweet corn", "Ham"],
+    preparationTime: 10,
+    imageUrl: "https://cdn.vuetifyjs.com/images/cards/cooking.png"
+  })
+})
+
 export default {
   name: "DishesService",
   getDishes(searchString) {
@@ -41,5 +51,8 @@ export default {
     }
 
     return api().get(`/dishes${parameters}`);
+  },
+  addDish() {
+    return api().post('/dishes')
   }
 };

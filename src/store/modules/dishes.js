@@ -4,6 +4,7 @@ import DishesService from "@/api/services/Dishes";
 
 const state = () => ({
   isSearching: false,
+  isCreatingDish: false,
   dishes: []
 });
 
@@ -21,15 +22,22 @@ const getters = {
   },
   getIsSearching: function(state) {
     return state.isSearching;
+  },
+  getIsCreatingDish: function(state) {
+    return state.isCreatingDish;
   }
 };
 
 const actions = {
   addDish: function({ commit }, dish) {
-    commit("ADD_DISH", dish);
-    this.dispatch("ingredients/updateIngredients", dish.ingredients, {
-      root: true
+    console.log(dish);
+    commit("CREATING_DISH", true)
+    DishesService.addDish().then(() => {
+      commit("CREATING_DISH", false);
     });
+  },
+  setIsCreatingDish: function({commit}, status) {
+    commit("CREATING_DISH", status);
   },
   getDishes: function({ commit }, searchString) {
     this.state.isSearching = true;
@@ -42,6 +50,9 @@ const actions = {
 const mutations = {
   ADD_DISH(state, dish) {
     state.dishes.unshift(dish);
+  },
+  CREATING_DISH(state, status) {
+    state.isCreatingDish = status;
   },
   SET_DISHES(state, dishes) {
     state.dishes = dishes;
