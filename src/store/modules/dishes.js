@@ -42,7 +42,7 @@ const actions = {
   getDishes: function({ commit }, searchString) {
     this.state.isSearching = true;
     DishesService.getDishes(searchString).then(response => {
-      commit("SET_DISHES", response.data.dishes);
+      commit("SET_DISHES", response.data.data);
     });
   }
 };

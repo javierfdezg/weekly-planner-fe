@@ -6,7 +6,7 @@
       <v-flex
         md12
         v-for="dish in $store.getters['dishes/getDishes']"
-        v-bind:key="dish.id"
+        v-bind:key="dish._id"
       >
         <Dish :dish="dish" />
       </v-flex>
@@ -20,9 +20,7 @@ import Dish from "@/components/Dishes/Dish";
 import Search from "@/components/Search";
 export default {
   name: "DishList",
-  created: function() {
-    this.$store.dispatch('dishes/getDishes')
-  },
+  created: function() {},
   components: { Search, Dish, CreateDish },
   data: () => ({}),
   methods: {}

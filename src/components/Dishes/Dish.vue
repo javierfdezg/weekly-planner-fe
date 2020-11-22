@@ -17,8 +17,8 @@
     >
 
     <v-card-text>
-      <div v-for="ingredient in dish.ingredients" v-bind:key="ingredient">
-        <span>{{ ingredient }}</span>
+      <div v-for="ingredient in dish.ingredients" v-bind:key="ingredient._id">
+        <span>{{ ingredient.name }}</span>
       </div>
     </v-card-text>
 

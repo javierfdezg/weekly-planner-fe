@@ -617,7 +617,6 @@ export default {
       // Return a list of items that CONTAIN the week starting on a day.
       // Sorted so the items that start earlier are always shown first.
       const items = this.findAndSortItemsInWeek(weekStart);
-      console.log(items);
       const results = [];
       const itemRows = [[], [], [], [], [], [], []];
       for (let i = 0; i < items.length; i++) {
