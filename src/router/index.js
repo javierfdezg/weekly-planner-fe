@@ -9,37 +9,37 @@ const routes = [
     path: "/",
     name: "Home",
     component: () =>
-        import(/* webpackChunkName: "about" */ "../views/Public/Home.vue")
+        import(/* webpackChunkName: "home" */ "../views/Public/Home.vue")
   },
   {
     path: "/menus",
     name: "Menus",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Private/Menus.vue")
+      import(/* webpackChunkName: "menus" */ "../views/Private/Menus.vue")
   },
   {
     path: "/dishes",
     name: "Dishes",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Private/Dishes.vue")
+      import(/* webpackChunkName: "dishes" */ "../views/Private/Dishes.vue")
   },
   {
     path: "/ingredients",
     name: "Ingredients",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Private/Ingredients.vue")
+      import(/* webpackChunkName: "ingredients" */ "../views/Private/Ingredients.vue")
   },
   {
     path: "/pantry",
     name: "Pantry",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Private/Pantry.vue")
+      import(/* webpackChunkName: "pantry" */ "../views/Private/Pantry.vue")
   },
   {
     path: "/shopping",
     name: "Shopping",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Private/Shopping.vue")
+      import(/* webpackChunkName: "shopping" */ "../views/Private/Shopping.vue")
   }
 ];
 

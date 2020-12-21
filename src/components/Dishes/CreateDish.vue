@@ -28,10 +28,12 @@
             </v-col>
             <v-col cols="12">
               <v-combobox
-                :items="$store.getters['item/getIngredients']"
-                v-model="dish.ingredients"
+                :items="$store.getters['ingredients/getIngredients']"
+                v-model="ingredients"
+                item-text="name"
+                item-value="_id"
                 :search-input.sync="searchInput"
-                @change="searchInput = ''"
+                @change="onIngredientsChange"
                 clearable
                 hide-selected
                 multiple
@@ -57,6 +59,8 @@
 </template>
 
 <script>
+import IngredientsService from "@/api/services/Ingredients";
+
 export default {
   name: "CreateDish",
   data: function() {
@@ -68,12 +72,16 @@ export default {
         ingredients: [],
         preparationTime: 0,
         imageURL: ""
-      }
+      },
+      ingredients: []
     };
+  },
+  created() {
+    this.$store.dispatch("ingredients/getIngredients");
   },
   computed: {
     showDialog: function() {
-      return this.$store.getters['dishes/getIsCreatingDish'];
+      return this.$store.getters["dishes/getIsCreatingDish"];
     }
   },
   watch: {
@@ -81,19 +89,39 @@ export default {
       this.$store.dispatch("dishes/setIsCreatingDish", status);
     },
     showDialog(newVal) {
-      this.dialog = newVal
+      this.dialog = newVal;
     }
   },
   methods: {
     addDish: function() {
-      this.$store.dispatch("dishes/addDish", this.dish);
+      let newDish = Object.create(this.dish);
+      newDish.ingredients = this.ingredients;
+      this.$store.dispatch("dishes/addDish", newDish);
     },
     closeDialog: function() {
       this.$store.dispatch("dishes/setIsCreatingDish", false);
-      this.getNewDish();
+      //this.getNewDish();
     },
     getNewDish: function() {
       this.dish = this.$store.getters["dishes/getNewDish"];
+    },
+    onIngredientsChange: function(ingredients) {
+      this.searchInput = "";
+
+      let ingredientList = [];
+      ingredients.forEach(ingredient => {
+        if (typeof ingredient === "string") {
+          IngredientsService.addIngredient({ name: ingredient }).then(response => {
+            return ingredientList.push(response.data.data);
+          });
+        }
+
+        if (typeof ingredient === "object") {
+          ingredientList.push(ingredient);
+        }
+      });
+
+      this.ingredients = ingredientList;
     }
   }
 };

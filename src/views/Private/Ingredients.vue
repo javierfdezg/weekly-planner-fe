@@ -12,7 +12,10 @@ import CreateIngredient from "@/components/Ingredients/CreateIngredient";
 import IngredientList from "@/components/Ingredients/IngredientList";
 export default {
   name: "Ingredients",
-  components: { CreateIngredient, IngredientList }
+  components: { CreateIngredient, IngredientList },
+  created() {
+    this.$store.dispatch('ingredients/getIngredients');
+  }
 };
 </script>
 

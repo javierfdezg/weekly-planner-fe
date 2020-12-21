@@ -1,34 +1,39 @@
 // Ingredients Store
 
+import IngredientsService from "@/api/services/Ingredients";
+
 const state = () => ({
-  ingredients: ["Tuna", "Bread", "Mayonnaise"]
+  isSearching: false,
+  ingredients: []
 });
 
 const getters = {
   getIngredients: function(state) {
-    return state.ingredients.sort()
+    return state.ingredients.sort();
   }
 };
 
 const actions = {
   addIngredient({ commit }, ingredient) {
-    commit("ADD_INGREDIENT", ingredient);
+    IngredientsService.addIngredient(ingredient).then(() => {
+      commit("ADD_INGREDIENT", ingredient);
+    });
   },
-  updateSearchString({ commit }, searchString) {
-    commit("UPDATE_SEARCH_STRING", searchString);
-  },
-  updateIngredients({ commit }, ingredients) {
-    commit("UPDATE_INGREDIENTS", ingredients);
+  getIngredients: function({ commit }, searchString) {
+    this.state.isSearching = true;
+    IngredientsService.getIngredients(searchString).then(response => {
+      commit("SET_INGREDIENTS", response.data.data);
+    });
   }
 };
 
 const mutations = {
   ADD_INGREDIENT(state, ingredient) {
     state.ingredients.unshift(ingredient);
-    state.ingredients = [... new Set(state.ingredients)]
+    state.ingredients = [...new Set(state.ingredients)];
   },
-  UPDATE_INGREDIENTS(state, ingredients) {
-    state.ingredients = [... new Set(state.ingredients.concat(ingredients))]
+  SET_INGREDIENTS(state, ingredients) {
+    state.ingredients = ingredients;
   }
 };
 

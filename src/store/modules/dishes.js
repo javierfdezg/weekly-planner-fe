@@ -5,20 +5,21 @@ import DishesService from "@/api/services/Dishes";
 const state = () => ({
   isSearching: false,
   isCreatingDish: false,
-  dishes: []
+  dishes: [],
+  newDish: {
+    name: "",
+    ingredients: [],
+    preparationTime: 0,
+    imageUrl: ""
+  }
 });
 
 const getters = {
   getDishes: function(state) {
     return state.dishes;
   },
-  getNewDish() {
-    return Object.create({
-      name: "",
-      ingredients: [],
-      preparationTime: 0,
-      imageURL: ""
-    });
+  getNewDish(state) {
+    return state.newDish;
   },
   getIsSearching: function(state) {
     return state.isSearching;
@@ -30,9 +31,9 @@ const getters = {
 
 const actions = {
   addDish: function({ commit }, dish) {
-    console.log(dish);
-    commit("CREATING_DISH", true)
-    DishesService.addDish().then(() => {
+    commit("CREATING_DISH", true);
+    DishesService.addDish(dish).then(() => {
+      commit("ADD_DISH", dish)
       commit("CREATING_DISH", false);
     });
   },
@@ -40,9 +41,10 @@ const actions = {
     commit("CREATING_DISH", status);
   },
   getDishes: function({ commit }, searchString) {
-    this.state.isSearching = true;
+    commit("SET_SEARCH_DISH", true);
     DishesService.getDishes(searchString).then(response => {
       commit("SET_DISHES", response.data.data);
+      commit("SET_SEARCH_DISH", false);
     });
   }
 };
@@ -57,6 +59,9 @@ const mutations = {
   SET_DISHES(state, dishes) {
     state.dishes = dishes;
     this.state.isSearching = false;
+  },
+  SET_SEARCH_DISH(state, status) {
+    this.state.isSearching = status;
   }
 };
 
