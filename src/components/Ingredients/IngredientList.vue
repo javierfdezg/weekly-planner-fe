@@ -12,9 +12,9 @@
         <tbody>
           <tr
             v-for="item in $store.getters['ingredients/getIngredients']"
-            v-bind:key="item"
+            v-bind:key="item._id"
           >
-            <td>{{ item }}</td>
+            <td>{{ item.name }}</td>
           </tr>
         </tbody>
       </template>
