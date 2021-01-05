@@ -7,9 +7,6 @@
         <v-btn color="blue darken-1" text @click="closeDialog">
           Cancel
         </v-btn>
-        <v-btn color="blue darken-1" text>
-          Add
-        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

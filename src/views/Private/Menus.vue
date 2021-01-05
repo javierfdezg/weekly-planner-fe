@@ -66,10 +66,19 @@ export default {
       useHolidayTheme: true,
       useTodayIcons: true,
       itemContentHeight: "10em",
-      items: []
+      items: [],
+      range: undefined
     };
   },
+  watch: {
+    storedItems() {
+      this.items = this.$store.getters["planner/getItemsForRange"](this.range);
+    }
+  },
   computed: {
+    storedItems() {
+      return this.$store.getters["planner/getItems"];
+    },
     userLocale() {
       return this.getDefaultBrowserLocale;
     },
@@ -91,6 +100,7 @@ export default {
   },
   methods: {
     periodChanged: function(range) {
+      this.range = range;
       this.items = this.$store.getters["planner/getItemsForRange"](range);
     },
     thisMonth(d, h, m) {

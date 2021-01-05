@@ -206,9 +206,24 @@ const actions = {
   setAddDishContext: function ({commit}, context) {
     commit("ADDING_DISH_CONTEXT", context);
   },
-  planDish: function({commit}, dish) {
-    console.log('Convert dish to item and store it in mongo');
-    console.log(dish);
+  planDish: function({commit, state}, dish) {
+    let dishes = []
+    dishes.push({
+      id: dish._id,
+      name: dish.name,
+      preparationTime: dish.preparationTime
+    });
+
+    let item = {
+      id: state.addDishContext.id,
+          startDate: state.addDishContext.startDate,
+          endDate: state.addDishContext.endDate,
+        title: state.addDishContext.id,
+        type: state.addDishContext.originalItem.type,
+        dishes: dishes
+    };
+
+    commit("ADD_ITEM", item);
     commit("ADDING_DISH", false);
     commit("ADDING_DISH_CONTEXT", undefined);
   }
