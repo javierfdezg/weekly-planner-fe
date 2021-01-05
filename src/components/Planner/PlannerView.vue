@@ -122,7 +122,7 @@
               >
                 <v-card class="mx-auto" max-width="344">
                   <v-card-text>
-                    <v-card-title>{{ i.originalItem.type | capitalize }}</v-card-title>
+                    <v-card-title>{{i.originalItem.type | capitalize}}</v-card-title>
                     <v-list>
                       <v-list-item v-for="dish in i.originalItem.dishes" v-bind:key="dish.id">
                         <v-list-item-content>{{ dish.name }}</v-list-item-content>
@@ -146,15 +146,17 @@
         </div>
       </div>
     </div>
+    <AddDish></AddDish>
   </div>
 </template>
 
 <script>
 import PlannerMathMixin from "@/components/Planner/PlannerMathMixin";
+import AddDish from "@/components/Planner/AddDish";
 
 export default {
   name: "PlannerView",
-
+  components: { AddDish },
   mixins: [PlannerMathMixin],
 
   props: {
@@ -419,6 +421,8 @@ export default {
     },
 
     onClickItem(calendarItem, windowEvent) {
+      this.$store.dispatch("planner/setIsAddingDish",  true);
+      this.$store.dispatch("planner/setAddDishContext",  calendarItem);
       this.$emit("click-item", calendarItem, windowEvent);
     },
 

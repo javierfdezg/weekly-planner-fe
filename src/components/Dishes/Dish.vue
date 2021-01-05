@@ -23,7 +23,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="deep-purple lighten-2" text @click="addToMenu">
+      <v-btn color="deep-purple lighten-2" text @click="addToMenu(dish)">
         Add to menu
       </v-btn>
     </v-card-actions>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Dish",
   props: {
@@ -43,8 +44,8 @@ export default {
     }
   },
   methods: {
-    addToMenu() {
-      console.log("TODO: Add dish to menu...");
+    addToMenu(dish) {
+      this.$store.dispatch("planner/planDish", dish);
     }
   }
 };

@@ -4,7 +4,7 @@ import dishes from "@/store/modules/dishes";
 import ingredients from "@/store/modules/ingredients";
 import pantry from "@/store/modules/pantry";
 import shopping from "@/store/modules/shopping";
-import menus from "@/store/modules/menus";
+import planner from "@/store/modules/planner";
 
 Vue.use(Vuex);
 
@@ -30,7 +30,7 @@ export default new Vuex.Store({
   modules: {
     dishes,
     ingredients,
-    menus,
+    planner,
     pantry,
     shopping
   }

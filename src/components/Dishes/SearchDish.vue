@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "Search",
+  name: "SearchDish",
   data: () => ({
     searchString: "",
     search: null

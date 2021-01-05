@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     periodChanged: function(range) {
-      this.items = this.$store.getters["menus/getItemsForRange"](range);
+      this.items = this.$store.getters["planner/getItemsForRange"](range);
     },
     thisMonth(d, h, m) {
       const t = new Date();

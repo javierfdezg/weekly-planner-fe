@@ -1,6 +1,8 @@
-// Menus Store
+// Planner Store
 
 const state = () => ({
+  isAddingDish: false,
+  addDishContext: undefined,
   items: [
     {
       id: `2020-10-16-lunch`,
@@ -107,6 +109,9 @@ function getCountForMealType(meals, type) {
 }
 
 const getters = {
+  getIsAddingDish: function(state) {
+    return state.isAddingDish;
+  },
   getItems: function(state) {
     return state.items;
   },
@@ -194,6 +199,18 @@ const actions = {
   },
   updateItems: function({ commit }, items) {
     commit("UPDATE_ITEMS", items);
+  },
+  setIsAddingDish: function({commit}, status) {
+    commit("ADDING_DISH", status);
+  },
+  setAddDishContext: function ({commit}, context) {
+    commit("ADDING_DISH_CONTEXT", context);
+  },
+  planDish: function({commit}, dish) {
+    console.log('Convert dish to item and store it in mongo');
+    console.log(dish);
+    commit("ADDING_DISH", false);
+    commit("ADDING_DISH_CONTEXT", undefined);
   }
 };
 
@@ -203,8 +220,14 @@ const mutations = {
   },
   UPDATE_ITEMS(state, items) {
     state.items = items;
-  }
-};
+  },
+  ADDING_DISH(state, status) {
+    state.isAddingDish = status;
+  },
+  ADDING_DISH_CONTEXT(state, context) {
+    state.addDishContext = context;
+  },
+ };
 
 export default {
   namespaced: true,
