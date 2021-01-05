@@ -94,13 +94,12 @@ export default {
   },
   methods: {
     addDish: function() {
-      let newDish = Object.create(this.dish);
-      newDish.ingredients = this.ingredients;
-      this.$store.dispatch("dishes/addDish", newDish);
+      this.dish.ingredients = this.ingredients;
+      this.$store.dispatch("dishes/addDish", this.dish);
     },
     closeDialog: function() {
       this.$store.dispatch("dishes/setIsCreatingDish", false);
-      //this.getNewDish();
+      this.getNewDish();
     },
     getNewDish: function() {
       this.dish = this.$store.getters["dishes/getNewDish"];

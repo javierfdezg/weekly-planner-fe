@@ -18,8 +18,6 @@ export default {
     }
 
     dish.ingredients = ingredients;
-    console.log(dish);
-
 
     return api().post("/dishes", {
       name: dish.name,

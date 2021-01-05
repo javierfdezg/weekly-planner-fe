@@ -19,7 +19,7 @@ const getters = {
     return state.dishes;
   },
   getNewDish(state) {
-    return state.newDish;
+    return Object.create(state.newDish);
   },
   getIsSearching: function(state) {
     return state.isSearching;
@@ -31,9 +31,9 @@ const getters = {
 
 const actions = {
   addDish: function({ commit }, dish) {
-    commit("CREATING_DISH", true);
-    DishesService.addDish(dish).then(() => {
-      commit("ADD_DISH", dish)
+    console.log(dish);
+    DishesService.addDish(dish).then((response) => {
+      commit("ADD_DISH", response.data.data)
       commit("CREATING_DISH", false);
     });
   },
