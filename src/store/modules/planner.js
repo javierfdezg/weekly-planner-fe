@@ -217,12 +217,14 @@ const actions = {
 
     let item = {
       id: state.addDishContext.id,
-          startDate: state.addDishContext.startDate,
-          endDate: state.addDishContext.endDate,
-        title: state.addDishContext.id,
-        type: state.addDishContext.originalItem.type,
-        dishes: dishes
+      startDate: state.addDishContext.startDate,
+      endDate: state.addDishContext.endDate,
+      title: state.addDishContext.id,
+      type: state.addDishContext.originalItem.type,
+      dishes: dishes
     };
+
+    console.log(state.items);
 
     commit("ADD_ITEM", item);
     commit("ADDING_DISH", false);
