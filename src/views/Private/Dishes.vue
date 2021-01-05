@@ -1,27 +1,20 @@
 <template>
   <v-layout>
     <v-container>
-      <Search></Search>
       <CreateDish></CreateDish>
-      <v-flex
-        md12
-        v-for="dish in $store.getters['dishes/getDishes']"
-        v-bind:key="dish._id"
-      >
-        <Dish :dish="dish" />
-      </v-flex>
+      <SelectDish></SelectDish>
     </v-container>
   </v-layout>
 </template>
 
 <script>
 import CreateDish from "@/components/Dishes/CreateDish";
-import Dish from "@/components/Dishes/Dish";
-import Search from "@/components/Search";
+import SelectDish from "@/components/Dishes/SelectDish";
+
 export default {
-  name: "DishList",
+  name: "Dishes",
   created: function() {},
-  components: { Search, Dish, CreateDish },
+  components: {SelectDish, CreateDish },
   data: () => ({}),
   methods: {}
 };
