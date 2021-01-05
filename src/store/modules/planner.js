@@ -207,7 +207,8 @@ const actions = {
     commit("ADDING_DISH_CONTEXT", context);
   },
   planDish: function({commit, state}, dish) {
-    let dishes = []
+    let dishes = state.addDishContext.originalItem.dishes || [];
+
     dishes.push({
       id: dish._id,
       name: dish.name,
