@@ -230,11 +230,13 @@ const actions = {
     let dishes = [];
     let originalDishes = [];
 
+    // No dishes to plan: TODO: refactor to method
     if (state.selectedDishes.length === 0) {
-      console.log('No dishes to plan');
-      return;
+      dishes = undefined;
+      originalDishes = undefined;
     }
 
+    // Need to plan dishes: TODO: refactor to method (create representation of dishes for planner)
     state.selectedDishes.forEach(dish => {
       originalDishes.push(dish);
 
@@ -245,6 +247,7 @@ const actions = {
       });
     });
 
+    // Create the item for the planner. TODO: refactor to method
     let item = {
       id: state.addDishContext.id,
       startDate: state.addDishContext.startDate,
@@ -255,7 +258,10 @@ const actions = {
       originalDishes: originalDishes
     };
 
+    // Persist the new item to the state
     commit("ADD_OR_REPLACE_ITEM", item);
+
+    // Finalize editing of adding dish. TODO: should this be in a different place? (separation of responsibilities)
     commit("ADDING_DISH", false);
     commit("ADDING_DISH_CONTEXT", undefined);
   },
@@ -278,15 +284,12 @@ const actions = {
 
 const mutations = {
   ADD_OR_REPLACE_ITEM(state, item) {
-    console.log(state.items);
-    let foundIndex = state.items.findIndex(x => x.id == item.id);
-    console.log(foundIndex);
-    if (foundIndex === -1) {
-      state.items.push(item);
-      return;
-    }
 
-    state.items[foundIndex] = item;
+    state.items = state.items.filter((stateItem) => {
+      return stateItem.id !== item.id;
+    });
+
+    state.items.push(item);
   },
   UPDATE_ITEMS(state, items) {
     state.items = items;
