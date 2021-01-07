@@ -31,7 +31,6 @@ const getters = {
 
 const actions = {
   addDish: function({ commit }, dish) {
-    console.log(dish);
     DishesService.addDish(dish).then((response) => {
       commit("ADD_DISH", response.data.data)
       commit("CREATING_DISH", false);

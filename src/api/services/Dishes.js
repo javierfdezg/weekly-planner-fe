@@ -10,6 +10,9 @@ export default {
 
     return api().get(`/dishes/${parameters}`);
   },
+  getDish: function (id) {
+    return api().get(`/dishes/${id}`);
+  },
   addDish: function(dish) {
     // TODO: should this be in this layer?
     let ingredients = null;

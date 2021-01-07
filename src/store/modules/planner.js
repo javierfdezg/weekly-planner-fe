@@ -1,8 +1,10 @@
 // Planner Store
+import DishesService from "@/api/services/Dishes";
 
 const state = () => ({
   isAddingDish: false,
   addDishContext: undefined,
+  selectedDishes: [],
   items: [
     {
       id: `2020-10-16-lunch`,
@@ -109,6 +111,12 @@ function getCountForMealType(meals, type) {
 }
 
 const getters = {
+  getSelectedDishes: function(state) {
+      return state.selectedDishes;
+  },
+  getAddDishContext: function(state) {
+    return state.addDishContext;
+  },
   getIsAddingDish: function(state) {
     return state.isAddingDish;
   },
@@ -195,24 +203,46 @@ const getters = {
 
 const actions = {
   addItem: function({ commit }, item) {
-    commit("ADD_ITEM", item);
+    commit("ADD_OR_REPLACE_ITEM", item);
   },
   updateItems: function({ commit }, items) {
     commit("UPDATE_ITEMS", items);
   },
-  setIsAddingDish: function({commit}, status) {
+  setIsAddingDish: function({ commit }, status) {
     commit("ADDING_DISH", status);
   },
-  setAddDishContext: function ({commit}, context) {
+  setAddDishContext: function({ commit }, context) {
     commit("ADDING_DISH_CONTEXT", context);
   },
-  planDish: function({commit, state}, dish) {
-    let dishes = state.addDishContext.originalItem.dishes || [];
+  addSelectedDish: function({ commit }, dish) {
+    DishesService.getDish(dish._id).then(response => {
+      commit("ADD_SELECTED_DISH", response.data.data);
+    });
+  },
+  removeSelectedDish: function({ commit }, dish) {
+    commit("REMOVE_SELECTED_DISH", dish);
+  },
+  flushSelectedDishes: function({ commit }) {
+    commit("FLUSH_SELECTED_DISHES");
+  },
+  planSelectedDishes: function({ commit, state }) {
 
-    dishes.push({
-      id: dish._id,
-      name: dish.name,
-      preparationTime: dish.preparationTime
+    let dishes = [];
+    let originalDishes = [];
+
+    if (state.selectedDishes.length === 0) {
+      console.log('No dishes to plan');
+      return;
+    }
+
+    state.selectedDishes.forEach(dish => {
+      originalDishes.push(dish);
+
+      dishes.push({
+        id: dish._id,
+        name: dish.name,
+        preparationTime: dish.preparationTime
+      });
     });
 
     let item = {
@@ -221,20 +251,42 @@ const actions = {
       endDate: state.addDishContext.endDate,
       title: state.addDishContext.id,
       type: state.addDishContext.originalItem.type,
-      dishes: dishes
+      dishes: dishes,
+      originalDishes: originalDishes
     };
 
-    console.log(state.items);
-
-    commit("ADD_ITEM", item);
+    commit("ADD_OR_REPLACE_ITEM", item);
     commit("ADDING_DISH", false);
     commit("ADDING_DISH_CONTEXT", undefined);
+  },
+  populateSelectedDishes: function ({state}) {
+    if (state.addDishContext &&
+      state.addDishContext.originalItem &&
+      state.addDishContext.originalItem.originalDishes) {
+
+      state.selectedDishes = state.addDishContext.originalItem.originalDishes;
+      return;
+    }
+
+    if (state.selectedDishes.length > 0) {
+      return;
+    }
+
+    state.selectedDishes = [];
   }
 };
 
 const mutations = {
-  ADD_ITEM(state, item) {
-    state.items.push(item);
+  ADD_OR_REPLACE_ITEM(state, item) {
+    console.log(state.items);
+    let foundIndex = state.items.findIndex(x => x.id == item.id);
+    console.log(foundIndex);
+    if (foundIndex === -1) {
+      state.items.push(item);
+      return;
+    }
+
+    state.items[foundIndex] = item;
   },
   UPDATE_ITEMS(state, items) {
     state.items = items;
@@ -245,7 +297,18 @@ const mutations = {
   ADDING_DISH_CONTEXT(state, context) {
     state.addDishContext = context;
   },
- };
+  ADD_SELECTED_DISH(state, dish) {
+    state.selectedDishes.push(dish);
+  },
+  REMOVE_SELECTED_DISH(state, dish) {
+    state.selectedDishes = state.selectedDishes.filter(function(selectedDish) {
+      return selectedDish._id !== dish._id;
+    });
+  },
+  FLUSH_SELECTED_DISHES(state) {
+    state.selectedDishes = [];
+  }
+};
 
 export default {
   namespaced: true,
