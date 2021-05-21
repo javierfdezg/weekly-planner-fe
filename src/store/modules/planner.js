@@ -1,5 +1,6 @@
 // Planner Store
 import DishesService from "@/api/services/Dishes";
+import MealsService from "@/api/services/Meals";
 
 const state = () => ({
   isAddingDish: false,
@@ -93,6 +94,7 @@ function getNewItem(type, day, month, year, placeholder) {
 
 function getMealsForDay(state, dateString) {
   let items = state.items.filter(item => {
+    item.startDate = new Date(item.startDate);
     let itemDate = new Date(item.startDate.toDateString())
       .toISOString()
       .split("T")[0];
@@ -258,8 +260,7 @@ const actions = {
       originalDishes: originalDishes
     };
 
-    // Persist the new item to the state
-    commit("ADD_OR_REPLACE_ITEM", item);
+    MealsService.addMeal(item).then(response => commit("ADD_OR_REPLACE_ITEM", response.data.data));
 
     // Finalize editing of adding dish. TODO: should this be in a different place? (separation of responsibilities)
     commit("ADDING_DISH", false);
